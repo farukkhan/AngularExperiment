@@ -2,43 +2,57 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AngularAspNetCore.Entities;
+using AngularAspNetCore.Filters;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AngularAspNetCore.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/sampledata")]
     public class SampleDataController : Controller
     {
+        IMapper _mapper;
+        public SampleDataController(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
         private static string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        [HttpGet("[action]")]
-        public IEnumerable<WeatherForecast> WeatherForecasts()
+        [WeatherForeCastsResultFilter]
+        [HttpGet("forecast")]
+        public async Task<IActionResult> WeatherForecasts()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return Ok(Enumerable.Range(1, 5).Select(index => new WeatherForeCast
             {
                 DateFormatted = DateTime.Now.AddDays(index).ToString("d"),
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
-            });
+            }));
         }
 
-        public class WeatherForecast
+        [WeatherForeCastResultFilter]
+        [HttpGet("forecast/{type}")]
+        public async Task<IActionResult> WeatherForecast(string type)
         {
-            public string DateFormatted { get; set; }
-            public int TemperatureC { get; set; }
-            public string Summary { get; set; }
-
-            public int TemperatureF
+            var rng = new Random();
+            var foreCast = Enumerable.Range(1, 5).Select(index => new WeatherForeCast
             {
-                get
-                {
-                    return 32 + (int)(TemperatureC / 0.5556);
-                }
-            }
+                DateFormatted = DateTime.Now.AddDays(index).ToString("d"),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            }).FirstOrDefault(forecast=> forecast.Summary.Contains(type));
+            
+
+            return Ok(foreCast);
         }
+
+
+
     }
 }
