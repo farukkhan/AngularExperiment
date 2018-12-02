@@ -1,0 +1,40 @@
+﻿<!--<link rel="stylesheet" href="../StyleSheet.css" />-->
+
+<div class="card">
+    <div class="card-header">
+        {{pageTitle}}
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2"> Filter by</div>
+            <div class="col-md-4"> <input [(ngModel)]="filterList" /> </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6"><h4>Filtered by:{{filterList}}</h4> </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table *ngIf="products && products.length" class="table" >
+            <thead>
+                <tr>
+                    <th class="btn btn-primary" (click)="toggleImage()">{{showImage?'Hide':'Show'}} Image</th>
+                    <th>Code</th>
+                    <th>Product</th>
+                    <th>Available</th>
+                    <th>Price</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products">
+                    <td><img *ngIf="showImage" [src]='product.ImageUrl' [style.width.px]="imageWidth" [style.margin.px]="imageMargin" /></td>
+                    <td>{{product.Code | lowercase}}</td>
+                    <td>{{product.Product}}</td>
+                    <td>{{product.Available}}</td>
+                    <td>{{product.Price | currency:'USD':'symbol':'1.2-2'}}</td>
+                    <td>{{product.Rating}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
