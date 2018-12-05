@@ -1,37 +1,39 @@
-﻿import { Component } from "@angular/core";
+﻿import { Component, OnInit } from "@angular/core";
+import { IProduct } from "./IProduct";
 
 @Component({
     selector: 'pm-productlist',
-    templateUrl:'./product-list.component.html'
+    templateUrl: './product-list.component.html',
+    styleUrls: ['./product-list.component.css'],
 })
 
-export class ProductListComponent {
-
+export class ProductListComponent implements OnInit {
+    ngOnInit(): void {
+        console.log('Form inside OnInit....');
+    }
     pageTitle: string = "Product List";
     imageWidth: number = 50;
     imageMargin: number = 2;
     showImage: boolean = true;
     filterList: string = "Comp";
-    products: any[]= [
+    products: IProduct[]= [
         {
-            "ImageUrl":"https://openclipart.org/download/265342/COMPUTADOR.svg",
-            "Code":"Comp001",
+            "Code": "Comp-001",
             "Product": "Computer",
-            "Available": "True",
-            "Price" : "35.5",
-            "Rating": "4.2"
+            "Available": true,
+            "Price" : 35.5,
+            "Rating": 4,
+            "ImageUrl": "https://openclipart.org/download/265342/COMPUTADOR.svg"
         },
         {
-            "ImageUrl": "https://openclipart.org/download/204064/Happy-Computer.svg",
-            "Code": "Lap002",
+            "Code": "Lap-002",
             "Product": "Laptop",
-            "Available": "True",
-            "Price": "55.5",
-            "Rating": "4.5"
+            "Available": true,
+            "Price": 55.5,
+            "Rating": 4.5,
+            "ImageUrl": "https://openclipart.org/download/204064/Happy-Computer.svg"
         }
-        
     ];
-
     toggleImage(): void {
         this.showImage = !this.showImage;
     }

@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { ProductListComponent } from './components/products/product-list.component';
+import { ConvertToSpace } from './Shared/convert-to-space.pipe';
 
 @NgModule({
     declarations: [
@@ -18,7 +19,8 @@ import { ProductListComponent } from './components/products/product-list.compone
         CounterComponent,
         FetchDataComponent,
         HomeComponent,
-        ProductListComponent
+        ProductListComponent,
+        ConvertToSpace
     ],
     imports: [
         CommonModule,

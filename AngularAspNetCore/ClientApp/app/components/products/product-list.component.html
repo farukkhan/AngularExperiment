@@ -28,7 +28,7 @@
             <tbody>
                 <tr *ngFor="let product of products">
                     <td><img *ngIf="showImage" [src]='product.ImageUrl' [style.width.px]="imageWidth" [style.margin.px]="imageMargin" /></td>
-                    <td>{{product.Code | lowercase}}</td>
+                    <td>{{product.Code | ConvertToSpace:'-'}}</td>
                     <td>{{product.Product}}</td>
                     <td>{{product.Available}}</td>
                     <td>{{product.Price | currency:'USD':'symbol':'1.2-2'}}</td>
