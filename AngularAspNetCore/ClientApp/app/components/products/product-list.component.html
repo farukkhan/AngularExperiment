@@ -7,10 +7,10 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-2"> Filter by</div>
-            <div class="col-md-4"> <input [(ngModel)]="filterList" /> </div>
+            <div class="col-md-4"> <input [(ngModel)]="filterBy" /> </div>
         </div>
         <div class="row">
-            <div class="col-md-6"><h4>Filtered by:{{filterList}}</h4> </div>
+            <div class="col-md-6"><h4>Filtered by:{{filterBy}}</h4> </div>
         </div>
     </div>
     <div class="table-responsive">
@@ -26,13 +26,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let product of products">
+                <tr *ngFor="let product of filteredProducts">
                     <td><img *ngIf="showImage" [src]='product.ImageUrl' [style.width.px]="imageWidth" [style.margin.px]="imageMargin" /></td>
                     <td>{{product.Code | ConvertToSpace:'-'}}</td>
                     <td>{{product.Product}}</td>
                     <td>{{product.Available}}</td>
                     <td>{{product.Price | currency:'USD':'symbol':'1.2-2'}}</td>
-                    <td>{{product.Rating}}</td>
+                    <td><pm-star [rating]="product.Rating" (ratingClicked)="OnRatingClicked($event)"></pm-star></td>
                 </tr>
             </tbody>
         </table>

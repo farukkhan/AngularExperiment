@@ -11,6 +11,7 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { ProductListComponent } from './components/products/product-list.component';
 import { ConvertToSpace } from './Shared/convert-to-space.pipe';
+import { StarComponent } from './Shared/starcomponent/star.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { ConvertToSpace } from './Shared/convert-to-space.pipe';
         FetchDataComponent,
         HomeComponent,
         ProductListComponent,
-        ConvertToSpace
+        ConvertToSpace,
+        StarComponent
     ],
     imports: [
         CommonModule,

@@ -15,7 +15,31 @@ export class ProductListComponent implements OnInit {
     imageWidth: number = 50;
     imageMargin: number = 2;
     showImage: boolean = true;
-    filterList: string = "Comp";
+    _filterBy: string;
+
+    get filterBy(): string {
+        return this._filterBy;
+    }
+
+    set filterBy(value: string) {
+        this._filterBy = value;
+        this.filteredProducts = this._filterBy ? this.DoProductsFilter(this._filterBy) : this.products;
+    }
+
+    constructor() {
+        this.filteredProducts = this.products;
+        this._filterBy = "Comp";
+    }
+
+    DoProductsFilter(filterby: string): IProduct[] {
+        return this.products.filter((product: IProduct) => product.Code.toLowerCase().indexOf(filterby.toLowerCase()) !== -1);
+    }
+
+    OnRatingClicked(data: string): void {
+        this.pageTitle = "Product List : " + data;
+    }
+
+    filteredProducts: IProduct[];
     products: IProduct[]= [
         {
             "Code": "Comp-001",
