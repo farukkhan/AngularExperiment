@@ -1,21 +1,27 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { IProduct } from "./IProduct";
+import { ProductService } from "./product.service";
 
 @Component({
     selector: 'pm-productlist',
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.css'],
+    providers: [ProductService]
 })
 
 export class ProductListComponent implements OnInit {
+
     ngOnInit(): void {
-        console.log('Form inside OnInit....');
+        this.products = this.productService.getProducts();
+        this.filteredProducts = this.products;
+        this.filterBy = "Comp";
     }
+
     pageTitle: string = "Product List";
     imageWidth: number = 50;
     imageMargin: number = 2;
     showImage: boolean = true;
-    _filterBy: string;
+    _filterBy: string = "";
 
     get filterBy(): string {
         return this._filterBy;
@@ -26,20 +32,19 @@ export class ProductListComponent implements OnInit {
         this.filteredProducts = this._filterBy ? this.DoProductsFilter(this._filterBy) : this.products;
     }
 
-    constructor() {
-        this.filteredProducts = this.products;
-        this._filterBy = "Comp";
+    constructor(private productService: ProductService) {
+       
     }
 
     DoProductsFilter(filterby: string): IProduct[] {
         return this.products.filter((product: IProduct) => product.Code.toLowerCase().indexOf(filterby.toLowerCase()) !== -1);
     }
-
+    
     OnRatingClicked(data: string): void {
         this.pageTitle = "Product List : " + data;
     }
 
-    filteredProducts: IProduct[];
+    filteredProducts: IProduct[] = [];
     products: IProduct[]= [
         {
             "Code": "Comp-001",
@@ -58,8 +63,8 @@ export class ProductListComponent implements OnInit {
             "ImageUrl": "https://openclipart.org/download/204064/Happy-Computer.svg"
         }
     ];
+
     toggleImage(): void {
         this.showImage = !this.showImage;
     }
-
 }

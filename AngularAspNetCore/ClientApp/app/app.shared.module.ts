@@ -12,6 +12,7 @@ import { CounterComponent } from './components/counter/counter.component';
 import { ProductListComponent } from './components/products/product-list.component';
 import { ConvertToSpace } from './Shared/convert-to-space.pipe';
 import { StarComponent } from './Shared/starcomponent/star.component';
+import { ProductService } from './components/products/product.service';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,7 @@ import { StarComponent } from './Shared/starcomponent/star.component';
         HomeComponent,
         ProductListComponent,
         ConvertToSpace,
-        StarComponent
+        StarComponent       
     ],
     imports: [
         CommonModule,
@@ -36,7 +37,8 @@ import { StarComponent } from './Shared/starcomponent/star.component';
             { path: 'products', component: ProductListComponent },
             { path: '**', redirectTo: 'products' }
         ])
-    ]
+    ],
+    providers:[ProductService]
 })
 export class AppModuleShared {
 }
